@@ -1,20 +1,25 @@
-<!---
-
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
-
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
-
 ## How it works
 
-Explain how your project works
+A programmable protocol emulator. A small 2-stage, 2-thread barrel processor runs
+protocol programs (UART, SPI, I2C, and more) with cycle-exact timing. Every instruction
+takes 1 + delay ticks, so pin edges are fully predictable. Each thread has its own
+program counter, scratch registers (X, Y), shift registers (ISR/OSR), clock divider
+and pin mapping. The host loads programs and configuration over an SPI interface,
+so new protocols can be added after fabrication without hardware changes.
+
+Work in progress: the design currently contains the template example and is being
+replaced step by step.
 
 ## How to test
 
-Explain how to use your project
+1. Use the RP2040 on the demo board as the host, connected to the host SPI pins.
+2. Write a protocol program (for example UART TX) into instruction memory over SPI.
+3. Configure the thread (clock divider, pins) and enable it.
+4. Send bytes to the TX FIFO and observe the UART TX pin with a logic analyzer
+   or a USB-UART adapter.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+- Logic analyzer or USB-UART adapter for observing protocol pins
+- Pull-up resistors (e.g. 4.7 kOhm) on I2C SDA and SCL
+- Optional: I2C/SPI sensor modules for real protocol tests
